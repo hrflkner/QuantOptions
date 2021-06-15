@@ -17,3 +17,6 @@ Ultimately, this is a project designed to test and implement the skills I have d
     <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/Gamma_Surface.jpg">
 </p>
 
+<p align="center">
+    <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/test_results.jpg">
+</p>
