@@ -76,12 +76,12 @@ class European_Option:
     def __init__(self,S0,K,g,r,T,callput,sgm=1000,price=None):
         self.S0=S0;
         self.K=K;
-        self.g=g
+        self.g=g;
         self.r=r;
-        self.sgm=sgm
+        self.sgm=sgm;
         self.T=T;
         self.callput=callput;
-        self.price=price
+        self.price=price;
         # For Notational Convenience:
         self.g_disc=np.e**(-self.g*self.T);
         self.r_disc=np.e**(-self.r*self.T);
@@ -159,7 +159,7 @@ class European_Option:
         lam=(1/100)*((self.S0*self.g_disc*norm.cdf(self.d1))/
                (self.S0*self.g_disc*norm.cdf(self.d1)-
                 self.K*self.r_disc*norm.cdf(self.d2)))
-        return lam
+        return lam;
         
     def Theta(self):
         term1=(self.S0*self.sgm*(self.pdfnorm))
@@ -196,7 +196,7 @@ class European_Option:
         else:
             raise ValueError('Invalid argument for callput. \
                              Try -1 for put or 1 for call.')
-        return epsilon
+        return epsilon;
     '''
     Higher Order Greeks
     -------------------
