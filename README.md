@@ -22,6 +22,6 @@ Ultimately, this is a project designed to test and implement the skills I have d
 </p>
 
 <p align="center">
-    Data tested against Peter Zhang's results in "Exotic Options"<br>
-    See documentation for sources
+    See documentation for all Jupyter Notebooks<br>
+    used to produce images
 </p>
