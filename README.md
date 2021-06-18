@@ -27,5 +27,5 @@ Ultimately, this is a project designed to test and implement the skills I have d
 </p>
 
 <p align="center">
-    <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/stock_correlation.jpg">
+    <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/stock_correlation.jpg" width=400 height=400>
 </p>
