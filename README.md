@@ -25,3 +25,7 @@ Ultimately, this is a project designed to test and implement the skills I have d
     See documentation for all Jupyter Notebooks<br>
     used to produce images
 </p>
+
+<p align="center">
+    <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/stock_correlation.jpg">
+</p>
