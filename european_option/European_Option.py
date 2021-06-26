@@ -76,32 +76,27 @@ class European_Option:
     def __init__(self,S0,K,g,r,T,callput,sgm=1000,price=None):
         self.S0=S0;
         self.K=K;
-        self.g=g;
+        self.g=g
         self.r=r;
-        self.sgm=sgm;
+        self.sgm=sgm
         self.T=T;
         self.callput=callput;
-        self.price=price;
+        self.price=price
         # For Notational Convenience:
         self.g_disc=np.e**(-self.g*self.T);
         self.r_disc=np.e**(-self.r*self.T);
-        self.d1=((np.log(self.S0/self.K)+(self.r+.5*self.sgm**2)*(self.T))/
-                 (self.sgm*np.sqrt(self.T)));
-        self.d2=self.d1-self.sgm*np.sqrt(self.T);
-        self.pdfnorm=(1/np.sqrt(2*np.pi))*np.e**((-(self.d1)**2)/2);
         # The following is called to calculate implied volatility
         if price != None:
             self.sgm=self.ImpVol();
-            self.d1=((np.log(self.S0/self.K)+(self.r+.5*self.sgm**2)*
-                      (self.T))/(self.sgm*np.sqrt(self.T)));
-            self.d2=self.d1-self.sgm*np.sqrt(self.T);
-            self.pdfnorm=(1/np.sqrt(2*np.pi))*np.e**((-(self.d1)**2)/2);
+        self.d1=self.optd1()
+        self.d2=self.optd2()
+        self.pdfnorm=self.pdf_norm()
 
     def ImpVol(self):
         
         def BS_Zero(sgm,self):
-            self.d1=((np.log(self.S0/self.K)+(self.r+.5*sgm**2)*(self.T))/
-                 (sgm*np.sqrt(self.T)));
+            self.d1=((np.log(self.S0/self.K)+(self.r-self.g+.5*sgm**2)*
+                      (self.T))/(sgm*np.sqrt(self.T)));
             self.d2=self.d1-sgm*np.sqrt(self.T);
             if self.callput==1:
                 Zero_P=((self.S0*norm.cdf(self.d1)
@@ -121,11 +116,18 @@ class European_Option:
         return self.IV
    
     def optd1(self):
+        self.d1=((np.log(self.S0/self.K)+(self.r-self.g+.5*self.sgm**2)*
+                  (self.T))/(self.sgm*np.sqrt(self.T)));
         return self.d1;
         
     def optd2(self):
+        self.d2=self.d1-self.sgm*np.sqrt(self.T)
         return self.d2;
-        
+    
+    def pdf_norm(self):
+        self.pdfnorm=(1/np.sqrt(2*np.pi))*np.e**((-(self.d1)**2)/2)
+        return self.pdfnorm
+    
     def Price(self):        
         if self.callput==1:
             BSP=(self.S0*norm.cdf(self.d1)
@@ -138,8 +140,8 @@ class European_Option:
                              Try -1 for put or 1 for call.')
         return BSP;
     '''
-    Traditional Option Greeks
-    -------------------------
+    Traditional Greeks
+    ------------------
     '''
     def Delta(self):
         if self.callput==1:
@@ -159,7 +161,7 @@ class European_Option:
         lam=(1/100)*((self.S0*self.g_disc*norm.cdf(self.d1))/
                (self.S0*self.g_disc*norm.cdf(self.d1)-
                 self.K*self.r_disc*norm.cdf(self.d2)))
-        return lam;
+        return lam
         
     def Theta(self):
         term1=(self.S0*self.sgm*(self.pdfnorm))
@@ -196,7 +198,7 @@ class European_Option:
         else:
             raise ValueError('Invalid argument for callput. \
                              Try -1 for put or 1 for call.')
-        return epsilon;
+        return epsilon
     '''
     Higher Order Greeks
     -------------------
@@ -222,10 +224,7 @@ class European_Option:
         return vomma;
     
     def Speed(self):
-        gamma=((self.g_disc/(self.sgm*self.S0*np.sqrt(self.T)))*self.pdfnorm)
-        speed=(-((self.d1+np.sqrt(self.sgm**2*self.T))/(self.S0))*gamma)
-        #(-((self.d1+self.sgm*np.sqrt(self.T))/((self.S0**2)*
-         #       self.sgm*np.sqrt(self.T)))*self.g_disc*self.pdfnorm)
+        speed=(-((self.d1+np.sqrt(self.sgm**2*self.T))/(self.S0))*self.Gamma())
         return speed;
     
     def Color(self):
@@ -235,12 +234,10 @@ class European_Option:
         return color;
     
     def Zomma(self):
-        gamma=((self.g_disc/(self.sgm*self.S0*np.sqrt(self.T)))*self.pdfnorm)
-        zomma=((self.d1*self.d2-1)/(self.sgm))*gamma
+        zomma=((self.d1*self.d2-1)/(self.sgm))*self.Gamma()
         return zomma;
     
     def Ultima(self):
-        vega=(self.S0*np.sqrt(self.T)*self.g_disc*(self.pdfnorm))
-        ultima=(((-vega)/(self.sgm**2))*(self.d1*self.d2*(1-self.d1*self.d2)+
-                self.d1**2 + self.d2**2)*(1/100))
+        ultima=(((-self.Vega())/(self.sgm**2))*(self.d1*self.d2*
+                    (1-self.d1*self.d2)+self.d1**2 + self.d2**2)*(1/100))
         return ultima;
