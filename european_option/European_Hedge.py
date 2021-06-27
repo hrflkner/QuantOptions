@@ -11,8 +11,9 @@ from scipy.stats import norm
 
 class European_Hedge(European_Option):
     '''
-    Price and Greeks of European Call/Put Options
-    ---------------------------------------------
+    Monte Carlo Price and Dynamic Delta 
+    Hedge of European Call/Put Options
+    -----------------------------------
     S0      - Initial Underlying Price
     K       - Strike Price
     g       - Risk-Free Rate
