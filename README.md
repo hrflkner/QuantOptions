@@ -18,14 +18,18 @@ Ultimately, this is a project designed to test and implement the skills I have d
 </p>
 
 <p align="center">
+    <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/MCHedge_Convergence.jpg" width=800 height=600>
+</p>
+
+<p align="center">
+    <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/stock_correlation.jpg" width=800 height=600>
+</p>
+
+<p align="center">
     <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/test_results.jpg" width=400 height=600>
 </p>
 
 <p align="center">
     See documentation for all Jupyter Notebooks<br>
     used to produce images
-</p>
-
-<p align="center">
-    <img src="https://github.com/hrflkner/QuantOptions/blob/main/res/stock_correlation.jpg" width=800 height=600>
 </p>
