@@ -64,11 +64,11 @@ class European_Hedge(European_Option):
                   f'{lowerCI}  -  {upperCI}\n')
         return mcPrice,mcstd
     
-    def BSDeltaHedgeMC(self,n,m,CI=False):
+    def BSDeltaHedgeMC(self,mu,n,m,CI=False):
         # Simulate Stocks
         w=np.random.standard_normal((n,m))
         dt=self.T/m
-        ST=(self.S0*np.exp(((self.r-0.5*self.sgm**2)*dt
+        ST=(self.S0*np.exp(((mu-0.5*self.sgm**2)*dt
                             +self.sgm*np.sqrt(dt)*w).cumsum(axis=1)))
         
         # Current time period
